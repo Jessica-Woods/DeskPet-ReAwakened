@@ -23,7 +23,7 @@ namespace sdl {
 
     void setRenderDrawColor(Uint8 red, Uint8 green, Uint8 blue, Uint8 alpha);
     void renderClear();
-    void render(Texture& texture);
+    void renderCopy(SDL_Texture& texture, SDL_Rect* source, SDL_Rect* target);
     void renderPresent();
 
     Texture* createTextureFromFile(std::string filename);

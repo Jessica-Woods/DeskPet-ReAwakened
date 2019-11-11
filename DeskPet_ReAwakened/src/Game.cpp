@@ -1,7 +1,11 @@
 #include "Game.h"
 #include "GameState.h"
 
-Game::Game() : window("DeskPet ReAwakened", 476, 299), textureManager(window) {
+Game::Game() : 
+  window("DeskPet ReAwakened", 476, 299), 
+  textureManager(window), 
+  spritesheetManager(textureManager),
+  animationManager(spritesheetManager) {
 }
 
 GameState* Game::currentState() {
@@ -16,6 +20,8 @@ void Game::pushState(GameState* state) {
   state->setGame(*this);
   state->setWindow(window);
   state->setTextureManager(textureManager);
+  state->setSpritesheetManager(spritesheetManager);
+  state->setAnimationManager(animationManager);
   states.push(state);
 }
 

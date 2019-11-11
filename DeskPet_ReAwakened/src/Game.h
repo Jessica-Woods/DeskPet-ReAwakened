@@ -5,6 +5,9 @@
 #include "sdl/Window.h"
 #include "sdl/Texture.h"
 #include "sdl/TextureManager.h"
+#include "sdl/SpritesheetManager.h"
+#include "sdl/AnimationManager.h"
+
 
 class GameState;
 
@@ -14,6 +17,8 @@ private:
 protected:
   sdl::Window window;
   sdl::TextureManager textureManager;
+  sdl::SpritesheetManager spritesheetManager;
+  sdl::AnimationManager animationManager;
 
 public:
   Game();

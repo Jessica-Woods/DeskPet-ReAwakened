@@ -10,15 +10,19 @@
 namespace sdl {
   class Texture {
   private:
+    sdl::Window& window;
     SDL_Texture* texture;
     int width;
     int height;
   public:
-    Texture(SDL_Texture* texture, int width, int height);
+    Texture(sdl::Window& window, SDL_Texture* texture, int width, int height);
     ~Texture();
 
-    void setColor(Uint8 red, Uint8 green, Uint8 blue);
+    void render();
+    void render(int x, int y);
+    void render(int x, int y, SDL_Rect clip);
 
+    void setColor(Uint8 red, Uint8 green, Uint8 blue);
     void setAlpha(Uint8 alpha);
 
     SDL_Texture& getTexture();

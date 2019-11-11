@@ -75,8 +75,8 @@ void sdl::Window::renderClear() {
   SDL_RenderClear(sdlRenderer);
 }
 
-void sdl::Window::render(Texture& texture) {
-  SDL_RenderCopy(sdlRenderer, &texture.getTexture(), nullptr, nullptr);
+void sdl::Window::renderCopy(SDL_Texture& texture, SDL_Rect* source, SDL_Rect* target) {
+  SDL_RenderCopy(sdlRenderer, &texture, source, target);
 }
 
 void sdl::Window::renderPresent() {
@@ -101,5 +101,5 @@ sdl::Texture* sdl::Window::createTextureFromFile(std::string filepath) {
 
   SDL_FreeSurface(surface);
 
-  return new Texture(texture, width, height);
+  return new Texture(*this, texture, width, height);
 }

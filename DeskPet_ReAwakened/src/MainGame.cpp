@@ -1,4 +1,5 @@
 #include "MainGame.h"
+#include "sdl/Spritesheet.h"
 
 #include "Game.h"
 
@@ -15,7 +16,8 @@ void MainGame::update() {
 }
 
 void MainGame::render() {
-  window->render(textureManager->getDayBackground());
-  window->render(textureManager->getBorder());
-  //game.getWindow().render(game.getDayBackground());
+  textureManager->getDayBackground().render();
+
+  animationManager->getChomp().render(25, 80);
+  textureManager->getBorder().render();
 }

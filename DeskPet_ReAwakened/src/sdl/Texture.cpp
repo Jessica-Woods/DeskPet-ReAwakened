@@ -4,7 +4,7 @@
 #include <exception>
 #include <string>
 
-sdl::Texture::Texture(SDL_Texture* texture, int width, int height) {
+sdl::Texture::Texture(sdl::Window& win, SDL_Texture* texture, int width, int height) : window(win) {
   this->texture = texture;
   this->width = width;
   this->height = height;
@@ -15,6 +15,24 @@ sdl::Texture::~Texture() {
     SDL_DestroyTexture(texture);
     texture = nullptr;
   }
+}
+
+void sdl::Texture::render() {
+  window.renderCopy(*texture, nullptr, nullptr);
+}
+
+void sdl::Texture::render(int x, int y) {
+  SDL_Rect target = { x, y, width, height };
+  window.renderCopy(*texture, nullptr, &target);
+}
+
+void sdl::Texture::render(int x, int y, SDL_Rect source) {
+  SDL_Rect target = { x, y, width, height };
+
+  target.w = source.w;
+  target.h = source.h;
+  
+  window.renderCopy(*texture, &source, &target);
 }
 
 void sdl::Texture::setColor(Uint8 red, Uint8 green, Uint8 blue) {
