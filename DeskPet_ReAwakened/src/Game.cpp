@@ -22,6 +22,7 @@ void Game::pushState(GameState* state) {
   state->setTextureManager(textureManager);
   state->setSpritesheetManager(spritesheetManager);
   state->setAnimationManager(animationManager);
+  state->setPet(pet);
   states.push(state);
 }
 

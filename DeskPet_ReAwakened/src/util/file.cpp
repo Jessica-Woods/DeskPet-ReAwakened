@@ -3,6 +3,11 @@
 
 #include <fstream>
 
+bool util::file::exists(std::string path) {
+  std::ifstream infile(path);
+  return infile.good();
+}
+
 std::vector<std::string> util::file::readLines(std::string path) {
   std::vector<std::string> lines;
   std::ifstream file(path, std::ifstream::in);

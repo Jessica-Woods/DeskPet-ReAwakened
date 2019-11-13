@@ -10,16 +10,32 @@ sdl::AnimationManager::AnimationManager(SpritesheetManager& ssm) : spritesheetMa
 sdl::AnimationManager::~AnimationManager() {
 }
 
-sdl::Animation sdl::AnimationManager::getChomp() {
+sdl::Animation sdl::AnimationManager::getUpset() {
   return Animation(spritesheetManager.getPetTvCat())
-    .addFrame("chomp1", 0.2)
-    .addFrame("chomp2", 0.3);
+    .addFrame("upset1", 0.2)
+    .addFrame("upset2", 0.3);
+}
+
+sdl::Animation sdl::AnimationManager::getEating() {
+  return Animation(spritesheetManager.getPetTvCat())
+    .addFrame("eating1", 0.2)
+    .addFrame("eating2", 0.3);
 }
 
 sdl::Animation sdl::AnimationManager::getSleep() {
-  return getChomp();
+  return Animation(spritesheetManager.getPetTvCat())
+    .addFrame("sleep1", 0.2)
+    .addFrame("sleep2", 0.3);
+}
+
+sdl::Animation sdl::AnimationManager::getSick() {
+  return Animation(spritesheetManager.getPetTvCat())
+    .addFrame("sick1", 0.2)
+    .addFrame("sick2", 0.3);
 }
 
 sdl::Animation sdl::AnimationManager::getIdle() {
-  return getChomp();
+  return Animation(spritesheetManager.getPetTvCat())
+    .addFrame("idle1", 0.2)
+    .addFrame("idle2", 0.3);
 }

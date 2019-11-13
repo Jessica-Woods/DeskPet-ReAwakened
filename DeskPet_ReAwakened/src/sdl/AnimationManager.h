@@ -15,8 +15,10 @@ namespace sdl {
       AnimationManager(SpritesheetManager& spritesheetManager);
       ~AnimationManager();
 
-      Animation getChomp();
+      Animation getUpset();
+      Animation getEating();
       Animation getSleep();
+      Animation getSick();
       Animation getIdle();
   };
 }

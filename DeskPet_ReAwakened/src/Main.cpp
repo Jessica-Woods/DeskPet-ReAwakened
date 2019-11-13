@@ -3,7 +3,6 @@
 
 #include "sdl/Window.h"
 
-#include "PetFile.h"
 #include "Game.h"
 #include "GameState.h"
 #include "MainGame.h"
@@ -11,7 +10,7 @@
 int main(int argc, char* args[]) {
 
   // Load base resources && Setup game (read in save file)-> outputs a myGame was a struct now a class
-  //PetFile pet("pet.txt");
+
 
   Game game;
   game.pushState(new MainGame);

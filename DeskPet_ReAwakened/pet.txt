@@ -1,0 +1,4 @@
+NAME: Pixel
+AGE: 5
+STATE: BABY
+BOND: 2

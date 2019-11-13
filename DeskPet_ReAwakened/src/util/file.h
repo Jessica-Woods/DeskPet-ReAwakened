@@ -3,7 +3,8 @@
 #include <vector>
 
 namespace util {
-  namespace file {
+  namespace file { 
+    bool exists(std::string path);
     std::vector<std::string> readLines(std::string path);
     std::vector<std::string> readCleanLines(std::string path);
   }

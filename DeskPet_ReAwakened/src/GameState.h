@@ -7,6 +7,8 @@
 #include "sdl/SpritesheetManager.h"
 #include "sdl/AnimationManager.h"
 
+#include "Pet.h"
+
 class Game;
 
 class GameState {
@@ -16,6 +18,7 @@ protected:
   sdl::TextureManager* textureManager = nullptr;
   sdl::SpritesheetManager* spritesheetManager = nullptr;
   sdl::AnimationManager* animationManager = nullptr;
+  Pet* pet = nullptr;
 
 public:
   GameState(); 
@@ -26,6 +29,7 @@ public:
   void setTextureManager(sdl::TextureManager& textureManager);
   void setSpritesheetManager(sdl::SpritesheetManager& spritesheetManager);
   void setAnimationManager(sdl::AnimationManager& animationManager);
+  void setPet(Pet& pet);
 
   virtual void handleInput(SDL_Event e) = 0;
   virtual void update() = 0;

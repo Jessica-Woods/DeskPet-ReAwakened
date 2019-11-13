@@ -8,6 +8,7 @@
 #include "sdl/SpritesheetManager.h"
 #include "sdl/AnimationManager.h"
 
+#include "Pet.h"
 
 class GameState;
 
@@ -19,6 +20,7 @@ protected:
   sdl::TextureManager textureManager;
   sdl::SpritesheetManager spritesheetManager;
   sdl::AnimationManager animationManager;
+  Pet pet;
 
 public:
   Game();

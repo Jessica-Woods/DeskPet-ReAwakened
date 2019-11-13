@@ -8,6 +8,8 @@ namespace sdl {
       Texture* border;
       Texture* dayBackground;
       Texture* nightBackground;
+      Texture* petTvCat;
+
     public:
       TextureManager(sdl::Window& window);
       ~TextureManager();
@@ -15,5 +17,6 @@ namespace sdl {
       Texture& getBorder();
       Texture& getDayBackground();
       Texture& getNightBackground();
+      Texture& getPetTvCat();
   };
 }
