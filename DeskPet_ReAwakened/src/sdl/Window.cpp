@@ -1,6 +1,6 @@
 #include "Window.h"
-
 #include "Texture.h"
+#include <SDL.h>
 
 sdl::Window::Window(std::string title, int width, int height) {
   if (SDL_Init(SDL_INIT_VIDEO) < 0) {
@@ -77,6 +77,14 @@ void sdl::Window::renderClear() {
 
 void sdl::Window::renderCopy(SDL_Texture& texture, SDL_Rect* source, SDL_Rect* target) {
   SDL_RenderCopy(sdlRenderer, &texture, source, target);
+}
+
+void sdl::Window::renderCopyEx(SDL_Texture& texture, SDL_Rect* source, SDL_Rect* target, bool f) {
+  SDL_Point* center = NULL;
+  double angle = 0;
+  auto flip = f ? SDL_FLIP_HORIZONTAL : SDL_FLIP_NONE;
+
+  SDL_RenderCopyEx(sdlRenderer, &texture, source, target, angle, center, flip);
 }
 
 void sdl::Window::renderPresent() {

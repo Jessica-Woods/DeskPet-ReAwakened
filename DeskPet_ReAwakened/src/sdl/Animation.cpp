@@ -17,7 +17,7 @@ sdl::Animation& sdl::Animation::addFrame(std::string spriteName, float duration)
 void sdl::Animation::update(float delta) {
 }
 
-void sdl::Animation::render(int targetX, int targetY) {
+void sdl::Animation::render(int targetX, int targetY, bool flip) {
   auto source = frames.at(currentFrame).spriteName;
-  spritesheet.render(source, targetX, targetY); 
+  spritesheet.render(source, targetX, targetY, flip); 
 }

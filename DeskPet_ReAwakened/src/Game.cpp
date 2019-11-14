@@ -5,7 +5,8 @@ Game::Game() :
   window("DeskPet ReAwakened", 476, 299), 
   textureManager(window), 
   spritesheetManager(textureManager),
-  animationManager(spritesheetManager) {
+  animationManager(spritesheetManager),
+  pet(animationManager) {
 }
 
 GameState* Game::currentState() {

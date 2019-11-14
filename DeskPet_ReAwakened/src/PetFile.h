@@ -1,10 +1,6 @@
 #pragma once
 
-#include "sdl/AnimationManager.h"
 #include "Pet.h"
-
-// we will need to read in game data from a file
-// and populate a struct with the appropriate data.
 
 class PetFile {
 private:

@@ -31,8 +31,18 @@ void sdl::Texture::render(int x, int y, SDL_Rect source) {
 
   target.w = source.w;
   target.h = source.h;
-  
+
   window.renderCopy(*texture, &source, &target);
+}
+
+void sdl::Texture::render(int x, int y, SDL_Rect source, bool flip) {
+  SDL_Rect target = { x, y, width, height };
+
+  target.w = source.w;
+  target.h = source.h;
+
+  //window.renderCopy(*texture, &source, &target);
+  window.renderCopyEx(*texture, &source, &target, flip);
 }
 
 void sdl::Texture::setColor(Uint8 red, Uint8 green, Uint8 blue) {

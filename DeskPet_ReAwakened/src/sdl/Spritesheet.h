@@ -12,5 +12,5 @@ private:
 public:
   Spritesheet(sdl::Texture& texture);
   void addSprite(std::string name, int x, int y, int width, int height);
-  void render(std::string name, int targetX, int targetY);
+  void render(std::string name, int targetX, int targetY, bool flip);
 };

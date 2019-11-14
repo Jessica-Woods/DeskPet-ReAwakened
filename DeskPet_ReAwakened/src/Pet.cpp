@@ -1,7 +1,8 @@
 #include "Pet.h"
 #include "PetFile.h"
+#include "sdl/AnimationManager.h"
 
-Pet::Pet() {
+Pet::Pet(sdl::AnimationManager& cm) : currentAnimation(cm) {
   this->state = Pet::PetState::EGG;
   this->name = "TV Cat";
   this->age = 0;
@@ -22,3 +23,14 @@ void Pet::save() {
   PetFile file(state, name, age, bond);
   file.save();
 }
+
+void Pet::handleInput(SDL_Event e) {
+  if (e.type == SDL_KEYDOWN) {
+    if (e.key.keysym.sym == SDLK_UP) { yPos -= 15; }
+    else if (e.key.keysym.sym == SDLK_DOWN) { yPos += 15; }
+    else if (e.key.keysym.sym == SDLK_LEFT) { xPos -= 15; flip = false; }
+    else if (e.key.keysym.sym == SDLK_RIGHT) { xPos += 15; flip = true; }
+  }
+}
+
+

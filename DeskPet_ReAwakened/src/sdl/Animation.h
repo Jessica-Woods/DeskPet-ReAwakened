@@ -20,7 +20,7 @@ namespace sdl {
     sdl::Animation& addFrame(std::string spriteName, float duration);
 
     void update(float delta);
-    void render(int targetX, int targetY);
+    void render(int targetX, int targetY, bool flip);
  
   private:
     Spritesheet& spritesheet;
