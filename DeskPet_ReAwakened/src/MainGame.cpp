@@ -20,6 +20,6 @@ void MainGame::render() {
   textureManager->getDayBackground().render();
   pet->render();
   //pet->save();
-
+  window->renderText("Hello");
   textureManager->getBorder().render();
 }

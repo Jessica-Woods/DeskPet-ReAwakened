@@ -41,7 +41,6 @@ void sdl::Texture::render(int x, int y, SDL_Rect source, bool flip) {
   target.w = source.w;
   target.h = source.h;
 
-  //window.renderCopy(*texture, &source, &target);
   window.renderCopyEx(*texture, &source, &target, flip);
 }
 

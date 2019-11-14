@@ -28,8 +28,8 @@ void Pet::handleInput(SDL_Event e) {
   if (e.type == SDL_KEYDOWN) {
     if (e.key.keysym.sym == SDLK_UP) { yPos -= 15; }
     else if (e.key.keysym.sym == SDLK_DOWN) { yPos += 15; }
-    else if (e.key.keysym.sym == SDLK_LEFT) { xPos -= 15; flip = false; }
-    else if (e.key.keysym.sym == SDLK_RIGHT) { xPos += 15; flip = true; }
+    else if (e.key.keysym.sym == SDLK_LEFT) { flip = false; xPos -= 15;}
+    else if (e.key.keysym.sym == SDLK_RIGHT) { flip = true;  xPos += 15;}
   }
 }
 

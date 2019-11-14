@@ -1,6 +1,7 @@
 #include "Window.h"
 #include "Texture.h"
 #include <SDL.h>
+#include <SDL_ttf.h>
 
 sdl::Window::Window(std::string title, int width, int height) {
   if (SDL_Init(SDL_INIT_VIDEO) < 0) {
@@ -34,17 +35,26 @@ sdl::Window::Window(std::string title, int width, int height) {
     throw std::exception("Failed to initialize SDL2_image");
   }
 
+  if (TTF_Init() < 0) {
+    throw std::exception("Failed to initialize SDL_TTF");
+  }
+
+  fontSans = TTF_OpenFont("resources/font/Sans.ttf", 24);
+
   open = true;
 }
 
 sdl::Window::~Window() {
   SDL_DestroyRenderer(sdlRenderer);
   SDL_DestroyWindow(sdlWindow);
+
   sdlWindow = nullptr;
   sdlRenderer = nullptr;
+  fontSans = nullptr;
 
   IMG_Quit();
   SDL_Quit();
+  TTF_Quit();
 }
 
 SDL_Renderer& sdl::Window::getSDLRenderer() {
@@ -91,12 +101,28 @@ void sdl::Window::renderPresent() {
   SDL_RenderPresent(sdlRenderer);
 }
 
+void sdl::Window::renderText(std::string text) {
+  SDL_Color White = { 255, 255, 255 };
+  SDL_Surface* surfaceMessage = TTF_RenderText_Solid(fontSans, text.c_str(), White);
+
+  SDL_Texture* Message = SDL_CreateTextureFromSurface(sdlRenderer, surfaceMessage);
+
+  SDL_Rect Message_rect; //create a rect
+  Message_rect.x = 100;  //controls the rect's x coordinate 
+  Message_rect.y = 100; // controls the rect's y coordinte
+  Message_rect.w = 100; // controls the width of the rect
+  Message_rect.h = 100; // controls the height of the rect
+
+  //renderCopy(*Message, &Message_rect);
+  SDL_RenderCopy(sdlRenderer, Message, nullptr, &Message_rect);
+}
+
 sdl::Texture* sdl::Window::createTextureFromFile(std::string filepath) {
   SDL_Surface* surface = IMG_Load(filepath.c_str());
   if (surface == nullptr) {
     throw std::exception("Could not load image surface");
   }
-
+ 
   SDL_SetColorKey(surface, SDL_TRUE, SDL_MapRGB(surface->format, 0, 0xFF, 0xFF));
 
   SDL_Texture* texture = SDL_CreateTextureFromSurface(sdlRenderer, surface);

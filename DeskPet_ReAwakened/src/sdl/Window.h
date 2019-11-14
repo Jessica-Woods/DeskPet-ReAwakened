@@ -1,6 +1,8 @@
 #pragma once
 #include <SDL.h>
 #include <SDL_Image.h>
+#include <SDL_ttf.h>
+
 #include <string>
 
 namespace sdl {
@@ -10,6 +12,7 @@ namespace sdl {
   private:
     SDL_Window* sdlWindow;
     SDL_Renderer* sdlRenderer;
+    TTF_Font* fontSans;
     bool open;
 
   public:
@@ -27,6 +30,7 @@ namespace sdl {
     void renderCopyEx(SDL_Texture& texture, SDL_Rect* source, SDL_Rect* target, bool flip);
     void renderPresent();
 
+    void renderText(std::string text);
     Texture* createTextureFromFile(std::string filename);
   };
 }
