@@ -30,7 +30,7 @@ namespace sdl {
     void renderCopyEx(SDL_Texture& texture, SDL_Rect* source, SDL_Rect* target, bool flip);
     void renderPresent();
 
-    void renderText(std::string text);
+    void renderText(std::string text, int xPos, int yPos);
     Texture* createTextureFromFile(std::string filename);
   };
 }

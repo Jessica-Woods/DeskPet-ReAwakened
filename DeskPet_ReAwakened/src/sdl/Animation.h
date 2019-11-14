@@ -11,22 +11,24 @@ namespace sdl {
   public:
     struct Frame {
       std::string spriteName;
-      float duration;
+      double durationMs;
     };
 
     Animation(Spritesheet& spritesheet);
     ~Animation();
+    Animation(const Animation& other);
+    Animation& operator=(const Animation& other);
     
-    sdl::Animation& addFrame(std::string spriteName, float duration);
+    sdl::Animation& addFrame(std::string spriteName, double duration);
 
-    void update(float delta);
+    void update(double delta);
     void render(int targetX, int targetY, bool flip);
  
   private:
     Spritesheet& spritesheet;
     std::vector<Frame> frames;
 
-    float elapsedTime = 0.0;
+    double elapsedTime = 0.0;
     int currentFrame = 0;
   };
 }

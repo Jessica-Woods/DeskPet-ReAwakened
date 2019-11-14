@@ -2,7 +2,7 @@
 #include "PetFile.h"
 #include "sdl/AnimationManager.h"
 
-Pet::Pet(sdl::AnimationManager& cm) : currentAnimation(cm) {
+Pet::Pet(sdl::AnimationManager& am) : animationManager(am), currentAnimation(animationManager.getIdle()){
   this->state = Pet::PetState::EGG;
   this->name = "TV Cat";
   this->age = 0;
@@ -24,13 +24,19 @@ void Pet::save() {
   file.save();
 }
 
+void Pet::render() {
+  currentAnimation.render(xPos, yPos, flip);
+}
+
+void Pet::update(double deltaTime) {
+  currentAnimation.update(deltaTime);
+}
+
 void Pet::handleInput(SDL_Event e) {
   if (e.type == SDL_KEYDOWN) {
-    if (e.key.keysym.sym == SDLK_UP) { yPos -= 15; }
+    if (e.key.keysym.sym == SDLK_UP) { yPos -= 15; currentAnimation = animationManager.getSleep(); }
     else if (e.key.keysym.sym == SDLK_DOWN) { yPos += 15; }
     else if (e.key.keysym.sym == SDLK_LEFT) { flip = false; xPos -= 15;}
     else if (e.key.keysym.sym == SDLK_RIGHT) { flip = true;  xPos += 15;}
   }
 }
-
-

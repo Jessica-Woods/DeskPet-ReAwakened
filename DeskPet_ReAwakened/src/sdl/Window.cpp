@@ -101,20 +101,23 @@ void sdl::Window::renderPresent() {
   SDL_RenderPresent(sdlRenderer);
 }
 
-void sdl::Window::renderText(std::string text) {
+void sdl::Window::renderText(std::string text, int xPos, int yPos) {
   SDL_Color White = { 255, 255, 255 };
   SDL_Surface* surfaceMessage = TTF_RenderText_Solid(fontSans, text.c_str(), White);
-
   SDL_Texture* Message = SDL_CreateTextureFromSurface(sdlRenderer, surfaceMessage);
+  
+  int length = text.length();
 
   SDL_Rect Message_rect; //create a rect
-  Message_rect.x = 100;  //controls the rect's x coordinate 
-  Message_rect.y = 100; // controls the rect's y coordinte
-  Message_rect.w = 100; // controls the width of the rect
-  Message_rect.h = 100; // controls the height of the rect
+  Message_rect.x = xPos;  //controls the rect's x coordinate 
+  Message_rect.y = yPos; // controls the rect's y coordinte
+  Message_rect.w = length * 20; // controls the width of the rect
+  Message_rect.h = 50; // controls the height of the rect
 
   //renderCopy(*Message, &Message_rect);
   SDL_RenderCopy(sdlRenderer, Message, nullptr, &Message_rect);
+  SDL_DestroyTexture(Message);
+  SDL_FreeSurface(surfaceMessage);
 }
 
 sdl::Texture* sdl::Window::createTextureFromFile(std::string filepath) {

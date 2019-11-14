@@ -52,7 +52,14 @@ void Game::handleInput() {
 }
 
 void Game::update() {
-  if (currentState() != nullptr) { currentState()->update(); }
+  if (currentState() != nullptr) {
+
+    previousTime = currentTime;
+    currentTime = SDL_GetPerformanceCounter();
+    double deltaTimeMs = (double)((currentTime - previousTime)*1000 / (double)SDL_GetPerformanceFrequency());
+  
+    currentState()->update(deltaTimeMs);
+  }
 }
 
 void Game::render() {

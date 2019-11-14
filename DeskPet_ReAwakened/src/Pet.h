@@ -6,17 +6,11 @@ class Pet {
 public:
   enum class PetState { EGG, BABY, CHILD, ADULT, RETIRED };
 
-  Pet(sdl::AnimationManager& currentAnimation);
+  Pet(sdl::AnimationManager& animationManager);
   void save();
-  void render() {
-    if (animationState == "upset") { currentAnimation.getUpset().render(xPos, yPos, flip); }
-    else if (animationState == "eating") { currentAnimation.getEating().render(xPos, yPos, flip); }
-    else if (animationState == "sleep") { currentAnimation.getSleep().render(xPos, yPos, flip); }
-    else if (animationState == "sick") { currentAnimation.getSick().render(xPos, yPos, flip); }
-    else if (animationState == "idle") { currentAnimation.getIdle().render(xPos, yPos, flip); }
-    else { throw std::exception("Error: missing animation"); }
-  }
+  void render();
   void handleInput(SDL_Event e);
+  void update(double deltaTime);
 
 private:
   // Pet Data
@@ -26,8 +20,9 @@ private:
   int bond;
 
   // InGame Pet Data
-  sdl::AnimationManager& currentAnimation;
-  std::string animationState = "idle";
+  sdl::AnimationManager& animationManager;
+  sdl::Animation currentAnimation;
+
   int xPos = 0;
   int yPos = 0;
   bool flip = false;

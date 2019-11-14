@@ -10,11 +10,26 @@ sdl::Texture::Texture(sdl::Window& win, SDL_Texture* texture, int width, int hei
   this->height = height;
 }
 
+sdl::Texture::Texture(const Texture& other) : 
+  window(other.window),
+  texture(other.texture),
+  width(other.width),
+  height(other.height) {
+}
+
 sdl::Texture::~Texture() {
   if (texture != nullptr) {
     SDL_DestroyTexture(texture);
     texture = nullptr;
   }
+}
+
+sdl::Texture& sdl::Texture::operator=(const Texture& other) {
+  window = other.window;
+  texture = other.texture;
+  width = other.width;
+  height = other.height;
+  return *this;
 }
 
 void sdl::Texture::render() {

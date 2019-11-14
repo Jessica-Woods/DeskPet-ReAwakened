@@ -13,13 +13,15 @@ void MainGame::handleInput(SDL_Event e) {
   pet->handleInput(e);
 }
 
-void MainGame::update() {
+void MainGame::update(double deltaTime) {
+  pet->update(deltaTime);
 }
 
 void MainGame::render() {
   textureManager->getDayBackground().render();
   pet->render();
   //pet->save();
-  window->renderText("Hello");
+  window->renderText("WWWW", 20, 20);
+  window->renderText("llll", 20, 60);
   textureManager->getBorder().render();
 }

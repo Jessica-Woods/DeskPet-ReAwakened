@@ -16,7 +16,9 @@ namespace sdl {
     int height;
   public:
     Texture(sdl::Window& window, SDL_Texture* texture, int width, int height);
+    Texture(const Texture& other);
     ~Texture();
+    Texture& operator=(const Texture& other);
 
     void render();
     void render(int x, int y);

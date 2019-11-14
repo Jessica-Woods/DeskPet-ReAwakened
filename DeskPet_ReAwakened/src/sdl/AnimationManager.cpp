@@ -12,30 +12,30 @@ sdl::AnimationManager::~AnimationManager() {
 
 sdl::Animation sdl::AnimationManager::getUpset() {
   return Animation(spritesheetManager.getPetTvCat())
-    .addFrame("upset1", 0.2)
-    .addFrame("upset2", 0.3);
+    .addFrame("upset1", 0.20)
+    .addFrame("upset2", 0.20);
 }
 
 sdl::Animation sdl::AnimationManager::getEating() {
   return Animation(spritesheetManager.getPetTvCat())
-    .addFrame("eating1", 0.2)
-    .addFrame("eating2", 0.3);
+    .addFrame("eating1", 0.20)
+    .addFrame("eating2", 0.20);
 }
 
 sdl::Animation sdl::AnimationManager::getSleep() {
   return Animation(spritesheetManager.getPetTvCat())
-    .addFrame("sleep1", 0.2)
-    .addFrame("sleep2", 0.3);
+    .addFrame("sleep1", 0.20)
+    .addFrame("sleep2", 0.20);
 }
 
 sdl::Animation sdl::AnimationManager::getSick() {
   return Animation(spritesheetManager.getPetTvCat())
-    .addFrame("sick1", 0.2)
-    .addFrame("sick2", 0.3);
+    .addFrame("sick1", 0.20)
+    .addFrame("sick2", 0.20);
 }
 
 sdl::Animation sdl::AnimationManager::getIdle() {
   return Animation(spritesheetManager.getPetTvCat())
-    .addFrame("idle1", 0.2)
-    .addFrame("idle2", 0.3);
+    .addFrame("idle1", 0.20)
+    .addFrame("idle2", 0.20);
 }
