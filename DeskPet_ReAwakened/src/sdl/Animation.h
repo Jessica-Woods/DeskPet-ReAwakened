@@ -18,6 +18,7 @@ namespace sdl {
     ~Animation();
     Animation(const Animation& other);
     Animation& operator=(const Animation& other);
+    friend bool operator==(const Animation& lhs, const Animation& rhs);
     
     sdl::Animation& addFrame(std::string spriteName, double duration);
 

@@ -25,18 +25,47 @@ void Pet::save() {
 }
 
 void Pet::render() {
-  currentAnimation.render(xPos, yPos, flip);
+  currentAnimation.render(x, y, flip);
+}
+
+void Pet::behaviour(double deltaTime) {
+  double timer = 8.00;
+  double elapsedTime = 0.0;
+  elapsedTime += deltaTime;
+
+  if (currentAnimation == animationManager.getIdle()){
+    if (elapsedTime > timer && flip == false) {
+      elapsedTime = 0.0;
+      x -= 20;
+      if (x <= 0) {
+        flip = true;
+      } 
+    }
+
+    if (elapsedTime > timer && flip == true) {
+      elapsedTime = 0.0;
+      x += 20;
+      if (x >= 350) {
+        flip = false;
+      }
+    }
+  }
+  else if (currentAnimation == animationManager.getSleep()) {
+    dx, dy = 0;
+    x, y = 200;
+  }
 }
 
 void Pet::update(double deltaTime) {
   currentAnimation.update(deltaTime);
+  behaviour(deltaTime);
 }
 
 void Pet::handleInput(SDL_Event e) {
   if (e.type == SDL_KEYDOWN) {
-    if (e.key.keysym.sym == SDLK_UP) { yPos -= 15; currentAnimation = animationManager.getSleep(); }
-    else if (e.key.keysym.sym == SDLK_DOWN) { yPos += 15; }
-    else if (e.key.keysym.sym == SDLK_LEFT) { flip = false; xPos -= 15;}
-    else if (e.key.keysym.sym == SDLK_RIGHT) { flip = true;  xPos += 15;}
+    if (e.key.keysym.sym == SDLK_UP) { y -= 15; currentAnimation = animationManager.getSleep(); }
+    else if (e.key.keysym.sym == SDLK_DOWN) { y += 15; }
+    else if (e.key.keysym.sym == SDLK_LEFT) { flip = false; x -= 15;}
+    else if (e.key.keysym.sym == SDLK_RIGHT) { flip = true;  x += 15;}
   }
 }

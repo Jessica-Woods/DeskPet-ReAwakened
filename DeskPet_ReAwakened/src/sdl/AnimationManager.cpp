@@ -36,6 +36,6 @@ sdl::Animation sdl::AnimationManager::getSick() {
 
 sdl::Animation sdl::AnimationManager::getIdle() {
   return Animation(spritesheetManager.getPetTvCat())
-    .addFrame("idle1", 0.20)
+    .addFrame("idle1", 0.30)
     .addFrame("idle2", 0.20);
 }

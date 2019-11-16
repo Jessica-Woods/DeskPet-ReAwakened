@@ -13,6 +13,12 @@ Spritesheet& Spritesheet::operator=(const Spritesheet& other) {
   return *this;
 }
 
+bool Spritesheet::operator==(const Spritesheet& other) {
+  return true;
+  //return (texture == other.texture 
+  //&& sprites == other.sprites);
+}
+
 void Spritesheet::addSprite(std::string name, int x, int y, int width, int height) {
   sprites[name] = SDL_Rect { x, y, width, height };
 }

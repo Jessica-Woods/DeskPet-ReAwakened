@@ -45,3 +45,10 @@ void sdl::Animation::render(int targetX, int targetY, bool flip) {
   auto source = frames.at(currentFrame).spriteName;
   spritesheet.render(source, targetX, targetY, flip); 
 }
+
+bool sdl::operator==(const Animation& lhs, const Animation& rhs) {
+  return true;// lhs.spritesheet == rhs.spritesheet
+    //&& lhs.frames == rhs.frames
+    //&& lhs.elapsedTime == rhs.elapsedTime
+    //&& lhs.currentFrame == rhs.currentFrame;
+}

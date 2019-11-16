@@ -12,6 +12,8 @@ public:
   void handleInput(SDL_Event e);
   void update(double deltaTime);
 
+  void behaviour(double deltaTime);
+
 private:
   // Pet Data
   PetState state; 
@@ -23,7 +25,10 @@ private:
   sdl::AnimationManager& animationManager;
   sdl::Animation currentAnimation;
 
-  int xPos = 0;
-  int yPos = 0;
+  int x = 250;
+  int y = 160;
+  int dx = 0;
+  int dy = 0;
+
   bool flip = false;
 };

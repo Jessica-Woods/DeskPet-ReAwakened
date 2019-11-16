@@ -21,7 +21,6 @@ namespace sdl {
 
     SDL_Renderer& getSDLRenderer();
     bool isOpen();
-
     bool pollEvent(SDL_Event& sdlEvent);
 
     void setRenderDrawColor(Uint8 red, Uint8 green, Uint8 blue, Uint8 alpha);
