@@ -17,6 +17,7 @@ private:
   std::stack<GameState*> states;
   Uint64 currentTime = SDL_GetPerformanceCounter();
   Uint64 previousTime = 0;
+  double deltaTimeAccumMs = 0.0;
 
 protected:
   sdl::Window window;

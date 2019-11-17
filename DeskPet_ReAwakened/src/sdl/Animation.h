@@ -14,21 +14,26 @@ namespace sdl {
       double durationMs;
     };
 
-    Animation(Spritesheet& spritesheet);
+    Animation(std::string name, Spritesheet& spritesheet);
     ~Animation();
     Animation(const Animation& other);
     Animation& operator=(const Animation& other);
-    friend bool operator==(const Animation& lhs, const Animation& rhs);
     
     sdl::Animation& addFrame(std::string spriteName, double duration);
+    bool getPause();
+    void setPause(bool pause);
+    void setCurrentFrame(int index);
+    std::string getName();
 
     void update(double delta);
     void render(int targetX, int targetY, bool flip);
  
   private:
+    std::string name;
     Spritesheet& spritesheet;
     std::vector<Frame> frames;
 
+    bool pause = false;
     double elapsedTime = 0.0;
     int currentFrame = 0;
   };

@@ -31,6 +31,7 @@ public:
   void setAnimationManager(sdl::AnimationManager& animationManager);
   void setPet(Pet& pet);
 
+  virtual void initialize() = 0;
   virtual void handleInput(SDL_Event e) = 0;
   virtual void update(double deltaTime) = 0;
   virtual void render() = 0;

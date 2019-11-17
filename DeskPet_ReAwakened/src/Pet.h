@@ -4,19 +4,28 @@
 
 class Pet {
 public:
-  enum class PetState { EGG, BABY, CHILD, ADULT, RETIRED };
+  enum class Stage { EGG, BABY, CHILD, ADULT, RETIRED };
+  enum class State { IDLE, SLEEP, SICK, EATING, UPSET };
 
   Pet(sdl::AnimationManager& animationManager);
   void save();
-  void render();
-  void handleInput(SDL_Event e);
   void update(double deltaTime);
+  void render();
 
-  void behaviour(double deltaTime);
+  void idle();
+  void sleep();
+  void sick();
+  void upset();
+  void eating();
+
+  void incHealth(int health);
+
+  std::string getName();
+  State getState();
 
 private:
   // Pet Data
-  PetState state; 
+  Stage stage; 
   std::string name;
   int age;
   int bond;
@@ -24,11 +33,19 @@ private:
   // InGame Pet Data
   sdl::AnimationManager& animationManager;
   sdl::Animation currentAnimation;
+  State state;
 
   int x = 250;
-  int y = 160;
-  int dx = 0;
-  int dy = 0;
+  int y = 165;
+  int dx = -10;
+  int dy = 10;
+  double moveTimerMs = 0.0;
 
-  bool flip = false;
+  int health = 0;
+  bool toggle = false;
+  bool flip();
+
+  void updateMovement(double deltaTime);
+  void updateAnimation(double deltaTime);
+  void updateHealth(double deltaTime);
 };

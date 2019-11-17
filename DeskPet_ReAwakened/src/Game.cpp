@@ -2,7 +2,7 @@
 #include "GameState.h"
 
 Game::Game() : 
-  window("DeskPet ReAwakened", 476, 299), 
+  window("DeskPet ReAwakened", 477, 300), 
   textureManager(window), 
   spritesheetManager(textureManager),
   animationManager(spritesheetManager),
@@ -24,6 +24,7 @@ void Game::pushState(GameState* state) {
   state->setSpritesheetManager(spritesheetManager);
   state->setAnimationManager(animationManager);
   state->setPet(pet);
+  state->initialize();
   states.push(state);
 }
 
@@ -53,12 +54,16 @@ void Game::handleInput() {
 
 void Game::update() {
   if (currentState() != nullptr) {
-
     previousTime = currentTime;
     currentTime = SDL_GetPerformanceCounter();
     double deltaTimeMs = (double)((currentTime - previousTime)*1000 / (double)SDL_GetPerformanceFrequency());
-  
-    currentState()->update(deltaTimeMs);
+
+    // TO-DO semi fixed timestep test with more animation
+    deltaTimeAccumMs += deltaTimeMs;
+    while (deltaTimeAccumMs > 8.0) {
+      deltaTimeAccumMs -= 8.0;
+      currentState()->update(8.0);
+    }
   }
 }
 

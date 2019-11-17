@@ -32,12 +32,6 @@ sdl::Texture& sdl::Texture::operator=(const Texture& other) {
   return *this;
 }
 
-bool sdl::Texture::operator==(const Texture& other) {
-  return (texture == other.texture
-  && width == other.width
-  && height == other.height);
-}
-
 void sdl::Texture::render() {
   window.renderCopy(*texture, nullptr, nullptr);
 }

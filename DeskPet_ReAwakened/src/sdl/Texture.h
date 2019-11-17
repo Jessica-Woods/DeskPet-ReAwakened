@@ -19,7 +19,6 @@ namespace sdl {
     Texture(const Texture& other);
     ~Texture();
     Texture& operator=(const Texture& other);
-    bool operator==(const Texture& other);
 
     void render();
     void render(int x, int y);

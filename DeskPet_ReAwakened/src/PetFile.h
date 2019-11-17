@@ -4,20 +4,20 @@
 
 class PetFile {
 private:
-  Pet::PetState state;
+  Pet::Stage stage;
   std::string name;
   int age;
   int bond;
 
   static std::string filepath;
-  static Pet::PetState petStateFromString(std::string s);
-  static std::string petStateToString(Pet::PetState s);
+  static Pet::Stage petStageFromString(std::string s);
+  static std::string petStageToString(Pet::Stage s);
   
 public:
-  PetFile(Pet::PetState state, std::string name, int age, int bond);
+  PetFile(Pet::Stage stage, std::string name, int age, int bond);
   void save();
 
-  Pet::PetState& getState();
+  Pet::Stage& getStage();
   std::string getName();
   int getAge();
   int getBond();

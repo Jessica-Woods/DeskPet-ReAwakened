@@ -3,24 +3,28 @@
 #include "Spritesheet.h"
 #include "Animation.h"
 
-sdl::Animation::Animation(Spritesheet& ss) : spritesheet(ss) {
+sdl::Animation::Animation(std::string n, Spritesheet& ss) : name(n), spritesheet(ss) {
 }
 
 sdl::Animation::~Animation() {
 }
 
 sdl::Animation::Animation(const Animation& other) : 
+  name(other.name),
   spritesheet(other.spritesheet),
   frames(other.frames),
   elapsedTime(other.elapsedTime),
-  currentFrame(other.currentFrame) {
+  currentFrame(other.currentFrame),
+  pause(other.pause) {
 }
 
 sdl::Animation& sdl::Animation::operator=(const Animation& other) {
+  name = other.name;
   spritesheet = other.spritesheet;
   frames = other.frames;
   elapsedTime = other.elapsedTime;
   currentFrame = other.currentFrame;
+  pause = other.pause;
   return *this;
 }
 
@@ -29,14 +33,33 @@ sdl::Animation& sdl::Animation::addFrame(std::string spriteName, double duration
   return *this;
 }
 
-void sdl::Animation::update(double delta) {
-  elapsedTime += delta;
-  if (elapsedTime > frames.at(currentFrame).durationMs) {
-    ++currentFrame;
-    elapsedTime = 0;
+bool sdl::Animation::getPause() {
+  return pause;
+}
 
-    if (currentFrame >= frames.size()) {
-      currentFrame = 0;
+void sdl::Animation::setPause(bool pause)
+{
+  this->pause = pause;
+}
+
+void sdl::Animation::setCurrentFrame(int index) {
+  currentFrame = index;
+}
+
+std::string sdl::Animation::getName() {
+  return name;
+}
+
+void sdl::Animation::update(double delta) {
+  if(!pause) {
+    elapsedTime += delta;
+    if (elapsedTime > frames.at(currentFrame).durationMs) {
+      elapsedTime = elapsedTime - frames.at(currentFrame).durationMs;
+      ++currentFrame;
+
+      if (currentFrame >= frames.size()) {
+        currentFrame = 0;
+      }
     }
   }
 }
@@ -44,11 +67,4 @@ void sdl::Animation::update(double delta) {
 void sdl::Animation::render(int targetX, int targetY, bool flip) {
   auto source = frames.at(currentFrame).spriteName;
   spritesheet.render(source, targetX, targetY, flip); 
-}
-
-bool sdl::operator==(const Animation& lhs, const Animation& rhs) {
-  return true;// lhs.spritesheet == rhs.spritesheet
-    //&& lhs.frames == rhs.frames
-    //&& lhs.elapsedTime == rhs.elapsedTime
-    //&& lhs.currentFrame == rhs.currentFrame;
 }
