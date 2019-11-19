@@ -18,10 +18,14 @@ public:
   void upset();
   void eating();
 
-  void incHealth(int health);
+  void addHealth(int health);
+  void addHunger(int hunger);
+
 
   std::string getName();
   State getState();
+  int getHealth();
+  int getHunger();
 
 private:
   // Pet Data
@@ -40,12 +44,19 @@ private:
   int dx = -10;
   int dy = 10;
   double moveTimerMs = 0.0;
+  double healthTimerMS = 0.0;
+  double hungerTimerMS = 0.0;
 
   int health = 0;
+  int hunger = 0;
   bool toggle = false;
   bool flip();
+  void center();
 
   void updateMovement(double deltaTime);
   void updateAnimation(double deltaTime);
+  void updateState(double deltaTime);
   void updateHealth(double deltaTime);
+  void updateHunger(double deltaTime);
+
 };

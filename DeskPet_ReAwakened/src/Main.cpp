@@ -10,6 +10,7 @@ int main(int argc, char* args[]) {
     game.handleInput();
     game.update();
     game.render();
+    game.runPostLoopTriggers();
   }
 
   return 0;

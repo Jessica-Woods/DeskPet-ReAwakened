@@ -3,7 +3,8 @@
 
 Game::Game() : 
   window("DeskPet ReAwakened", 477, 300), 
-  textureManager(window), 
+  textureManager(window),
+  soundManager(),
   spritesheetManager(textureManager),
   animationManager(spritesheetManager),
   pet(animationManager) {
@@ -20,6 +21,7 @@ GameState* Game::currentState() {
 void Game::pushState(GameState* state) {
   state->setGame(*this);
   state->setWindow(window);
+  state->setSoundManager(soundManager);
   state->setTextureManager(textureManager);
   state->setSpritesheetManager(spritesheetManager);
   state->setAnimationManager(animationManager);
@@ -29,14 +31,18 @@ void Game::pushState(GameState* state) {
 }
 
 void Game::popState() {
-  delete states.top();
-  states.pop();
+  postLoopTriggers.push_back([&]() {
+    delete states.top();
+    states.pop();
+  });
 }
 
 void Game::clearStates() {
-  while (!states.empty()) {
-    popState();
-  }
+  postLoopTriggers.push_back([&]() {
+    while (!states.empty()) {
+      popState();
+    }
+  });
 }
 
 bool Game::isRunning() {
@@ -73,4 +79,11 @@ void Game::render() {
     currentState()->render(); 
     window.renderPresent();
   }
+}
+
+void Game::runPostLoopTriggers() {
+  for (auto trigger : postLoopTriggers) {
+    trigger();
+  }
+  postLoopTriggers.clear();
 }

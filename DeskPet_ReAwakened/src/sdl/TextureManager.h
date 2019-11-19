@@ -17,9 +17,13 @@ namespace sdl {
       Texture* iconFeed;
       Texture* iconSleep;
       Texture* iconMedi;
+      Texture* iconHelp;
 
       Texture* appleRed;
       Texture* appleGreen;
+
+      Texture* hungerFull;
+      Texture* hungerEmpty;
 
     public:
       TextureManager(sdl::Window& window);
@@ -38,8 +42,12 @@ namespace sdl {
       Texture& getIconFeed();
       Texture& getIconSleep();
       Texture& getIconMedi();
+      Texture& getIconHelp();
 
       Texture& getAppleRed();
       Texture& getAppleGreen();
+
+      Texture& getHungerFull();
+      Texture& getHungerEmpty();
   };
 }

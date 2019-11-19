@@ -7,10 +7,17 @@ private:
   Button* feedButton = nullptr;
   Button* mediButton = nullptr;
   Button* sleepButton = nullptr;
+  Button* helpButton = nullptr;
 
   void onFeedClicked();
   void onMediClicked();
   void onSleepClicked();
+  void onHelpClicked();
+
+  void renderHealthBar();
+  void renderHungerBar();
+  
+  void updateMusic();
 
 public:
   MainGame();

@@ -6,6 +6,7 @@
 #include "sdl/TextureManager.h"
 #include "sdl/SpritesheetManager.h"
 #include "sdl/AnimationManager.h"
+#include "sdl/SoundManager.h"
 
 #include "Pet.h"
 
@@ -15,6 +16,7 @@ class GameState {
 protected:
   Game* game = nullptr;
   sdl::Window* window = nullptr;
+  sdl::SoundManager* soundManager = nullptr;
   sdl::TextureManager* textureManager = nullptr;
   sdl::SpritesheetManager* spritesheetManager = nullptr;
   sdl::AnimationManager* animationManager = nullptr;
@@ -26,6 +28,7 @@ public:
 
   void setGame(Game& game);
   void setWindow(sdl::Window& window);
+  void setSoundManager(sdl::SoundManager& soundManager);
   void setTextureManager(sdl::TextureManager& textureManager);
   void setSpritesheetManager(sdl::SpritesheetManager& spritesheetManager);
   void setAnimationManager(sdl::AnimationManager& animationManager);

@@ -18,9 +18,13 @@ sdl::TextureManager::TextureManager(sdl::Window& window) {
   iconFeed = window.createTextureFromFile(images + "icon-Feed.png");
   iconSleep = window.createTextureFromFile(images + "icon-Sleep.png");
   iconMedi = window.createTextureFromFile(images + "icon-Medi.png");
+  iconHelp = window.createTextureFromFile(images + "icon-Help.png");
 
   appleRed = window.createTextureFromFile(images + "apple-Red.png");
   appleGreen = window.createTextureFromFile(images + "apple-Green.png");
+
+  hungerFull = window.createTextureFromFile(images + "hunger-Full.png");
+  hungerEmpty = window.createTextureFromFile(images + "hunger-Empty.png");
 }
 
 sdl::TextureManager::~TextureManager() {
@@ -37,9 +41,13 @@ sdl::TextureManager::~TextureManager() {
   delete iconFeed;
   delete iconSleep;
   delete iconMedi;
+  delete iconHelp;
 
   delete appleRed;
   delete appleGreen;
+
+  delete hungerFull;
+  delete hungerEmpty;
 }
 
 sdl::Texture& sdl::TextureManager::getBorder() { return *border; }
@@ -55,6 +63,10 @@ sdl::Texture& sdl::TextureManager::getheartFull() { return *heartFull; }
 sdl::Texture& sdl::TextureManager::getIconFeed() { return *iconFeed; }
 sdl::Texture& sdl::TextureManager::getIconSleep() { return *iconSleep; }
 sdl::Texture& sdl::TextureManager::getIconMedi() { return *iconMedi; }
+sdl::Texture& sdl::TextureManager::getIconHelp() { return *iconHelp; }
 
 sdl::Texture& sdl::TextureManager::getAppleRed() { return* appleRed;}
 sdl::Texture& sdl::TextureManager::getAppleGreen() { return *appleGreen; }
+
+sdl::Texture& sdl::TextureManager::getHungerFull(){ return *hungerFull; }
+sdl::Texture& sdl::TextureManager::getHungerEmpty(){ return *hungerEmpty;}

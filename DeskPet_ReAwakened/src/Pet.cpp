@@ -24,25 +24,26 @@ Pet::Pet(sdl::AnimationManager& am) : animationManager(am), currentAnimation(ani
 void Pet::update(double deltaTime) {
   updateAnimation(deltaTime);
   updateMovement(deltaTime);
+  updateState(deltaTime);
+  updateHunger(deltaTime);
   updateHealth(deltaTime);
 }
 
 void Pet::render() { currentAnimation.render(x, y, flip()); }
 
-
 // Helper Functions
 std::string Pet::getName() { return name; }
-
 Pet::State Pet::getState() { return state; }
-
+int Pet::getHealth() { return health; }
+int Pet::getHunger() { return hunger; }
 bool Pet::flip() { return dx > 0; }
 
 void Pet::save() {
   PetFile file(stage, name, age, bond);
   file.save();
 }
-void Pet::updateHealth(double deltaTime) {
-  if (state != Pet::State::SLEEP){
+void Pet::updateState(double deltaTime) {
+  if (state != Pet::State::SLEEP && state != Pet::State::EATING){
     if (health == 0) {
       sick();
     } else if (health <= 3) {
@@ -51,11 +52,42 @@ void Pet::updateHealth(double deltaTime) {
       idle();
     }
 
-    // we need to decrease health over time
+    // we need to decrease health over hunger
+  }
+}
+
+void Pet::updateHealth(double deltaTimeMs) {
+  // 20 seconds
+  double HealthtimeMs = 20000.0;
+  if (state != Pet::State::SLEEP) {
+    healthTimerMS += deltaTimeMs;
+
+    if (healthTimerMS > HealthtimeMs) {
+      healthTimerMS = healthTimerMS - HealthtimeMs;
+      if (hunger <= 0 && state != Pet::State::EATING) {
+        addHealth(-1);
+      } else if (hunger > 0) {
+        addHealth(1);
+      }
+    }
+  }
+}
+
+
+void Pet::updateHunger(double deltaTimeMs) {
+  // 20 seconds
+  double HungertimeMS = 20000.0;
+  if (state != Pet::State::SLEEP) {
+    hungerTimerMS += deltaTimeMs;
+    if (state != Pet::State::EATING && hungerTimerMS > HungertimeMS) {
+      hungerTimerMS = hungerTimerMS - HungertimeMS;
+      addHunger(-1);
+    }
   }
 }
 
 // Pet States
+void Pet::center() { x = 250; y = 170; dx, dy = 0; }
 void Pet::idle() {
   if (state != Pet::State::IDLE) {
     state = Pet::State::IDLE;
@@ -65,51 +97,51 @@ void Pet::idle() {
     dy = -10;
   }
 }
-
 void Pet::sleep() {
-
   if (state != Pet::State::SLEEP) {
     state = Pet::State::SLEEP;
-    x = 250;
-    y = 170;
-    dx = 0;
-    dy = 0;
+    center();
   }
 }
 void Pet::sick() {
   if (state != Pet::State::SICK) {
     state = Pet::State::SICK;
-    x = 250;
-    y = 170;
-    dx = 0;
-    dy = 0;
+    center();
   }
 }
-
 void Pet::upset() {
   if (state != Pet::State::UPSET){
     state = Pet::State::UPSET;
-    x = 250;
-    y = 170;
-    dx = 0;
-    dy = 0;
+    center();
   }
 }
-
 void Pet::eating() {
   if (state != Pet::State::EATING) {
     state = Pet::State::EATING;
-    x = 250;
-    y = 170;
-    dx = 0;
-    dy = 0;
+    center();
   }
 }
 
-void Pet::incHealth(int health) {
+void Pet::addHealth(int health) {
   this->health += health;
-  if (this->health > 5) {
-    this->health = 5;
+  if (this->health > 10) {
+    this->health = 10;
+  }
+
+  if (this->health < 1) {
+    this->health = 0;
+  }
+}
+
+void Pet::addHunger(int hunger) {
+  this->hunger += hunger;
+  if (this->hunger > 5) {
+    this->hunger = 5;
+  }
+
+  if (this->hunger < 1) {
+    this->hunger = 0;
+    addHealth(-1);
   }
 }
 
