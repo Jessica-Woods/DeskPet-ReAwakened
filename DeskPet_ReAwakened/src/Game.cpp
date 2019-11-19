@@ -87,3 +87,7 @@ void Game::runPostLoopTriggers() {
   }
   postLoopTriggers.clear();
 }
+
+void Game::save() {
+  pet.save();
+}

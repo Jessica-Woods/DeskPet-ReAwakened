@@ -1,12 +1,15 @@
 #include "Pet.h"
 #include "PetFile.h"
 #include "sdl/AnimationManager.h"
+#include <chrono>
 
 Pet::Pet(sdl::AnimationManager& am) : animationManager(am), currentAnimation(animationManager.getIdle()){
   this->stage = Pet::Stage::EGG;
   this->name = "TVCat";
   this->age = 0;
   this->bond = 0;
+  this->health = 0;
+  this->hunger = 0;
 
   idle();
 
@@ -17,6 +20,27 @@ Pet::Pet(sdl::AnimationManager& am) : animationManager(am), currentAnimation(ani
     this->name = petFile->getName();
     this->age = petFile->getAge();
     this->bond = petFile->getBond();
+    addHealth(petFile->getHealth());
+    addHunger(petFile->getHunger());
+
+    if (petFile->getSleeping()) {
+      sleep();
+    }
+
+    // Simulate the time we missed while the game was offline
+    auto timePassedMs = std::chrono::duration_cast<std::chrono::milliseconds>(
+      std::chrono::system_clock::now() - petFile->getLastSaveTime()
+    ).count();
+
+    double offlineMultiplier = 1.00;
+    double timeToSimulate = (double)timePassedMs * offlineMultiplier;
+    double tickSize = 1000.0;
+    while (timeToSimulate > 0.0) {
+      timeToSimulate -= tickSize;
+      updateHunger(tickSize);
+      updateHealth(tickSize);
+    }
+
     delete petFile;
   }
 }
@@ -39,7 +63,16 @@ int Pet::getHunger() { return hunger; }
 bool Pet::flip() { return dx > 0; }
 
 void Pet::save() {
-  PetFile file(stage, name, age, bond);
+  PetFile file(
+    stage, 
+    name, 
+    age, 
+    bond, 
+    health, 
+    hunger, 
+    state == Pet::State::SLEEP, 
+    std::chrono::system_clock::now()
+  );
   file.save();
 }
 void Pet::updateState(double deltaTime) {
@@ -87,7 +120,7 @@ void Pet::updateHunger(double deltaTimeMs) {
 }
 
 // Pet States
-void Pet::center() { x = 250; y = 170; dx, dy = 0; }
+void Pet::center() { x = 250; y = 170; dx = 0; dy = 0; }
 void Pet::idle() {
   if (state != Pet::State::IDLE) {
     state = Pet::State::IDLE;

@@ -47,9 +47,8 @@ private:
   double healthTimerMS = 0.0;
   double hungerTimerMS = 0.0;
 
-  int health = 0;
-  int hunger = 0;
-  bool toggle = false;
+  int health;
+  int hunger;
   bool flip();
   void center();
 

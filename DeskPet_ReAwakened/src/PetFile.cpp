@@ -1,34 +1,36 @@
-#define _CRT_SECURE_NO_WARNINGS
-// We're not using threads so were going to ignore this warning
-// https://stackoverflow.com/questions/38034033/c-localtime-this-function-or-variable-may-be-unsafe
-
 #include "PetFile.h"
 #include "util/file.h"
 #include "util/string.h"
+#include "util/time.h"
 #include <stdexcept>
 #include <ctime>
+#include <chrono>
 
 #include <fstream>
 #include <ostream>
 
 std::string PetFile::filepath = "pet.txt";
 
-PetFile::PetFile(Pet::Stage _stage, std::string _name, int _age, int _bond) :
-  stage(_stage), name(_name), age(_age), bond(_bond) {
+PetFile::PetFile(Pet::Stage _stage, std::string _name, int _age, int _bond, int _health, int _hunger, bool _sleeping, std::chrono::system_clock::time_point _lastSaveTime) :
+  stage(_stage), name(_name), age(_age), bond(_bond), health(_health), hunger(_hunger), sleeping(_sleeping), lastSaveTime(_lastSaveTime) {
 }
 
 void PetFile::save() {
   std::ofstream file(filepath, std::ofstream::out);
   std::time_t time = std::time(nullptr);
 
+  auto now = std::chrono::system_clock::now();
+  auto nowT = std::chrono::system_clock::to_time_t(now);
+
   file << "NAME: " << name;
   file << "\nAGE: " << age;
   file << "\nSTAGE: " << petStageToString(stage);
   file << "\nBOND: " << bond;
-  // WARNING : if threads are added to the game change the way time is recorded
-  // Will change if we have time
-  file << "\nTIME: " << std::asctime(std::localtime(&time));
-
+  file << "\nHEALTH: " << health;
+  file << "\nHUNGER: " << hunger;
+  file << "\nSLEEPING: " << sleeping;
+  file << "\nTIME: " << util::time::toString(lastSaveTime);
+  
   file.close();
 }
 
@@ -36,6 +38,13 @@ Pet::Stage& PetFile::getStage() { return stage; }
 std::string PetFile::getName() { return name; }
 int PetFile::getAge() { return age; }
 int PetFile::getBond() { return bond; }
+int PetFile::getHealth() { return health; }
+int PetFile::getHunger() { return hunger; }
+bool PetFile::getSleeping() { return sleeping; }
+
+std::chrono::system_clock::time_point PetFile::getLastSaveTime() {
+  return lastSaveTime;
+}
 
 PetFile* PetFile::tryLoad() {
   if (util::file::exists(filepath)) {
@@ -43,20 +52,31 @@ PetFile* PetFile::tryLoad() {
     std::string name;
     std::string age;
     std::string bond;
+    std::string health;
+    std::string hunger;
+    std::string sleeping;
+    std::string time;
 
     std::vector<std::string> lines = util::file::readCleanLines(filepath);
     for (auto line : lines) {
-      auto chunks = util::string::split(line, ':');
-      if (chunks[0] == "STAGE") { stage = util::string::trim(chunks[1]); }
-      if (chunks[0] == "NAME") { name = util::string::trim(chunks[1]); }
-      if (chunks[0] == "AGE") { age = util::string::trim(chunks[1]); }
-      if (chunks[0] == "BOND") { bond = util::string::trim(chunks[1]); }
-      if (chunks[0] == "TIME") { }
+      auto pair = util::string::split_first(line, ":");
+      auto command = std::get<0>(pair);
+      auto value = util::string::trim(std::get<1>(pair));
+
+      if (command == "STAGE") { stage = value; }
+      if (command == "NAME") { name = value; }
+      if (command == "AGE") { age = value; }
+      if (command == "BOND") { bond = value; }
+      if (command == "HEALTH") { health = value; }
+      if (command == "HUNGER") { hunger = value; }
+      if (command == "SLEEPING") { sleeping = value; }
+      if (command == "TIME") { time = value; }
       // Stats
       // Level
     }
 
-    if (stage.empty() || name.empty() || age.empty() || bond.empty()) {
+    if (stage.empty() || name.empty() || age.empty() || bond.empty() || 
+      health.empty() || hunger.empty() || sleeping.empty() || time.empty()) {
       throw std::exception("Invalid pet file");
     }
 
@@ -64,7 +84,11 @@ PetFile* PetFile::tryLoad() {
       petStageFromString(stage), 
       name, 
       stoi(age), 
-      stoi(bond)
+      stoi(bond),
+      stoi(health),
+      stoi(hunger),
+      sleeping == "1",
+      util::time::fromString(time)
     );
   } else {
     return nullptr;

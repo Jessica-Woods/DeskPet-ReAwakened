@@ -46,4 +46,5 @@ public:
   void update();
   void render();
   void runPostLoopTriggers();
+  void save();
 };

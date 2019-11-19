@@ -13,5 +13,7 @@ int main(int argc, char* args[]) {
     game.runPostLoopTriggers();
   }
 
+  game.save();
+
   return 0;
 }
