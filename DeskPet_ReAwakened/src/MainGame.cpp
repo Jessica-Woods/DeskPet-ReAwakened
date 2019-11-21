@@ -1,4 +1,5 @@
 #include "MainGame.h"
+#include "HelpMainGame.h"
 #include "sdl/Spritesheet.h"
 
 #include "Game.h"
@@ -87,8 +88,7 @@ void MainGame::onSleepClicked() {
 }
 
 void MainGame::onHelpClicked() {
-  // draw a help screen to the game
-  std::cout << "You asked for help" << std::endl;
+  game->pushState(new HelpMainGame);
 }
 
 void MainGame::renderHealthBar() {
@@ -109,11 +109,11 @@ void MainGame::renderHealthBar() {
     y = 10 - (5*(i % 2));
 
     if (health <= (i * 2)) {
-      textureManager->getheartEmpty().render(x, y);
+      textureManager->getHeartEmpty().render(x, y);
     } else if (health == (i * 2) + 1) {
-      textureManager->getheartHalf().render(x, y);
+      textureManager->getHeartHalf().render(x, y);
     } else if (health >= (i * 2) + 2) {
-      textureManager->getheartFull().render(x, y);
+      textureManager->getHeartFull().render(x, y);
     }
   }
 }

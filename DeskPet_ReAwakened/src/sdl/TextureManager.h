@@ -8,6 +8,9 @@ namespace sdl {
       Texture* border;
       Texture* dayBackground;
       Texture* nightBackground;
+      Texture* helpScreenMain;
+      Texture* helpScreenGame;
+
       Texture* petTvCat;
 
       Texture* heartEmpty;
@@ -18,6 +21,7 @@ namespace sdl {
       Texture* iconSleep;
       Texture* iconMedi;
       Texture* iconHelp;
+      Texture* iconHelpBack;
 
       Texture* appleRed;
       Texture* appleGreen;
@@ -32,17 +36,20 @@ namespace sdl {
       Texture& getBorder();
       Texture& getDayBackground();
       Texture& getNightBackground();
+      Texture& getHelpScreenMain();
+      Texture& getHelpScreenGame();
 
       Texture& getPetTvCat();
 
-      Texture& getheartEmpty();
-      Texture& getheartHalf();
-      Texture& getheartFull();
+      Texture& getHeartEmpty();
+      Texture& getHeartHalf();
+      Texture& getHeartFull();
 
       Texture& getIconFeed();
       Texture& getIconSleep();
       Texture& getIconMedi();
       Texture& getIconHelp();
+      Texture& getIconHelpBack();
 
       Texture& getAppleRed();
       Texture& getAppleGreen();

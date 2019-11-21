@@ -10,7 +10,6 @@ void Button::onClick(std::function<void()> callback) {
 }
 
 void Button::handleInput(SDL_Event e) {
-  // if(the button was clicked based on the data in e)
   if (e.button.type == SDL_MOUSEBUTTONDOWN 
       && e.button.button == SDL_BUTTON_LEFT
       && e.button.x > x

@@ -71,8 +71,6 @@ PetFile* PetFile::tryLoad() {
       if (command == "HUNGER") { hunger = value; }
       if (command == "SLEEPING") { sleeping = value; }
       if (command == "TIME") { time = value; }
-      // Stats
-      // Level
     }
 
     if (stage.empty() || name.empty() || age.empty() || bond.empty() || 

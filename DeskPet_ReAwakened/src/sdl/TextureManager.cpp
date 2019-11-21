@@ -8,6 +8,8 @@ sdl::TextureManager::TextureManager(sdl::Window& window) {
   border = window.createTextureFromFile(images + "border.png");
   dayBackground = window.createTextureFromFile(images + "day-background.png");
   nightBackground = window.createTextureFromFile(images + "night-background.png");
+  helpScreenMain = window.createTextureFromFile(images + "help-background.png");
+  helpScreenGame = window.createTextureFromFile(images + "help-background2.png");
 
   petTvCat = window.createTextureFromFile(images + "pet-TvCat.png");
 
@@ -19,6 +21,7 @@ sdl::TextureManager::TextureManager(sdl::Window& window) {
   iconSleep = window.createTextureFromFile(images + "icon-Sleep.png");
   iconMedi = window.createTextureFromFile(images + "icon-Medi.png");
   iconHelp = window.createTextureFromFile(images + "icon-Help.png");
+  iconHelpBack = window.createTextureFromFile(images + "icon-Help2.png");
 
   appleRed = window.createTextureFromFile(images + "apple-Red.png");
   appleGreen = window.createTextureFromFile(images + "apple-Green.png");
@@ -31,6 +34,8 @@ sdl::TextureManager::~TextureManager() {
   delete border;
   delete dayBackground;
   delete nightBackground;
+  delete helpScreenGame;
+  delete helpScreenMain;
 
   delete petTvCat;
 
@@ -42,6 +47,7 @@ sdl::TextureManager::~TextureManager() {
   delete iconSleep;
   delete iconMedi;
   delete iconHelp;
+  delete iconHelpBack;
 
   delete appleRed;
   delete appleGreen;
@@ -54,18 +60,23 @@ sdl::Texture& sdl::TextureManager::getBorder() { return *border; }
 sdl::Texture& sdl::TextureManager::getDayBackground() { return *dayBackground; }
 sdl::Texture& sdl::TextureManager::getNightBackground() { return *nightBackground; }
 
-sdl::Texture& sdl::TextureManager::getPetTvCat() {return *petTvCat;}
+sdl::Texture& sdl::TextureManager::getHelpScreenMain(){ return *helpScreenMain; }
+sdl::Texture& sdl::TextureManager::getHelpScreenGame(){ return *helpScreenGame; }
 
-sdl::Texture& sdl::TextureManager::getheartEmpty() {return *heartEmpty; }
-sdl::Texture& sdl::TextureManager::getheartHalf() { return *heartHalf; }
-sdl::Texture& sdl::TextureManager::getheartFull() { return *heartFull; }
+sdl::Texture& sdl::TextureManager::getPetTvCat() { return *petTvCat; }
+
+sdl::Texture& sdl::TextureManager::getHeartEmpty() { return *heartEmpty; }
+sdl::Texture& sdl::TextureManager::getHeartHalf() { return *heartHalf; }
+sdl::Texture& sdl::TextureManager::getHeartFull() { return *heartFull; }
 
 sdl::Texture& sdl::TextureManager::getIconFeed() { return *iconFeed; }
 sdl::Texture& sdl::TextureManager::getIconSleep() { return *iconSleep; }
 sdl::Texture& sdl::TextureManager::getIconMedi() { return *iconMedi; }
 sdl::Texture& sdl::TextureManager::getIconHelp() { return *iconHelp; }
 
-sdl::Texture& sdl::TextureManager::getAppleRed() { return* appleRed;}
+sdl::Texture& sdl::TextureManager::getIconHelpBack() { return *iconHelpBack;}
+
+sdl::Texture& sdl::TextureManager::getAppleRed() { return *appleRed;}
 sdl::Texture& sdl::TextureManager::getAppleGreen() { return *appleGreen; }
 
 sdl::Texture& sdl::TextureManager::getHungerFull(){ return *hungerFull; }

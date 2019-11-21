@@ -62,6 +62,29 @@ int Pet::getHealth() { return health; }
 int Pet::getHunger() { return hunger; }
 bool Pet::flip() { return dx > 0; }
 
+void Pet::addHealth(int health) {
+  this->health += health;
+  if (this->health > 10) {
+    this->health = 10;
+  }
+
+  if (this->health < 1) {
+    this->health = 0;
+  }
+}
+
+void Pet::addHunger(int hunger) {
+  this->hunger += hunger;
+  if (this->hunger > 5) {
+    this->hunger = 5;
+  }
+
+  if (this->hunger < 1) {
+    this->hunger = 0;
+    addHealth(-1);
+  }
+}
+
 void Pet::save() {
   PetFile file(
     stage, 
@@ -84,8 +107,6 @@ void Pet::updateState(double deltaTime) {
     } else {
       idle();
     }
-
-    // we need to decrease health over hunger
   }
 }
 
@@ -155,28 +176,6 @@ void Pet::eating() {
   }
 }
 
-void Pet::addHealth(int health) {
-  this->health += health;
-  if (this->health > 10) {
-    this->health = 10;
-  }
-
-  if (this->health < 1) {
-    this->health = 0;
-  }
-}
-
-void Pet::addHunger(int hunger) {
-  this->hunger += hunger;
-  if (this->hunger > 5) {
-    this->hunger = 5;
-  }
-
-  if (this->hunger < 1) {
-    this->hunger = 0;
-    addHealth(-1);
-  }
-}
 
 // Updating logic
 void Pet::updateMovement(double deltaTimeMs) {
